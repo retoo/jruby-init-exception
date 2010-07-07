@@ -1,0 +1,55 @@
+## Introduction
+
+JRuby produces/prints less-than-optional stacktraces when
+ExceptionInInitializerError occur. It merly prints the
+initalizererro-exception, but ignores the more helpful root case.
+
+This repository shows this problem with a small example.
+
+## How it works
+
+1. In Java method 'test' of java class 'Foo' a new instance of java-class 'Bar' is creaed
+2. This triggers the jvm to run the static initializer of Bar
+3. The static initalizer of Bar cause an exception
+
+And from JRuby:
+
+1. java_import 'Foo'
+2. create an object of type Foo and call method 'test()'
+
+## Setup
+
+Compile the Java source with mvn:
+
+    % mvn install
+
+## JRuby Test
+
+   % jruby test.rb
+
+Output:
+
+    retoo.App@151ff451
+    retoo/App.java:10:in `test': java.lang.ExceptionInInitializerError: null (NativeException)
+    	from test.rb:8
+
+## Java Test
+
+Java produces better errors can been seen by executing the java example:
+
+
+  % java -cp target/classes retoo.App
+
+Output:
+
+    Exception in thread "main" java.lang.ExceptionInInitializerError
+    	at retoo.App.test(App.java:10)
+    	at retoo.App.main(App.java:15)
+    Caused by: java.lang.RuntimeException: lets case an init exception
+    	at retoo.Bar.<clinit>(Bar.java:10)
+    	... 2 more
+
+## See also
+
+If the ExceptionInInitializerError occurs in the class which is imported by jruby itself then a
+NameError is being reported.
