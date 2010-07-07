@@ -7,7 +7,7 @@ package retoo;
 public class Bar  {
     static {
         if (1 == (1 + 0)) {
-          throw new RuntimeException("lets case an init exception");
+          throw new RuntimeException("lets cause an init exception");
         }
     }
 }

@@ -1,10 +1,12 @@
 ## Introduction
 
-JRuby produces/prints less-than-optional stacktraces when
-ExceptionInInitializerError occur. It merly prints the
-initalizererro-exception, but ignores the more helpful root case.
+JRuby produces/prints less-than-optional stacktraces when an
+ExceptionInInitializerError occurs. It merely prints the
+initializer-erro-exception, but ignores the more helpful root case.
 
 This repository shows this problem with a small example.
+
+http://jira.codehaus.org/browse/JRUBY-4923
 
 ## How it works
 
@@ -45,7 +47,7 @@ Output:
     Exception in thread "main" java.lang.ExceptionInInitializerError
     	at retoo.App.test(App.java:10)
     	at retoo.App.main(App.java:15)
-    Caused by: java.lang.RuntimeException: lets case an init exception
+    Caused by: java.lang.RuntimeException: lets cause an init exception
     	at retoo.Bar.<clinit>(Bar.java:10)
     	... 2 more
 
